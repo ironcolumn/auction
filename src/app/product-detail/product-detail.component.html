@@ -1,12 +1,12 @@
 <div class="thumbnail">
   <img src="http://placeholdit.sinaapp.com/820x230">
-  <h4 class="pull-right">{{ product.price }}元</h4>
-  <h4>{{ product.title }}</h4>
-  <h4>{{ product.desc }}</h4>
+  <h4 class="pull-right">{{ product?.price }}元</h4>
+  <h4>{{ product?.title }}</h4>
+  <h4>{{ product?.desc }}</h4>
   <div>
-    <p class="pull-right">{{ comments.length }}</p>
+    <p class="pull-right">{{ comments?.length }}</p>
     <p>
-      <app-stars [rating]="product.rating"></app-stars>
+      <app-stars [rating]="product?.rating"></app-stars>
     </p>
   </div>
 </div>
