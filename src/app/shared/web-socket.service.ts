@@ -1,8 +1,10 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import 'rxjs/Rx';
+
 @Injectable()
 export class WebSocketService {
+
   ws: WebSocket;
 
   constructor() {
@@ -15,14 +17,14 @@ export class WebSocketService {
         this.ws.onmessage = (event) => observer.next(event.data);
         this.ws.onerror = (event) => observer.error(event);
         this.ws.onclose = (event) => observer.complete();
-        console.log(id);
         this.ws.onopen = (event) => this.sendMessage({productId: id});
         return () => this.ws.close();
       }
-    ).map(message => {JSON.parse(message)});
+    ).map(message => JSON.parse(message));
   }
 
   sendMessage(message: any) {
     this.ws.send(JSON.stringify(message));
   }
+
 }
