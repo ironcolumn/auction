@@ -12,9 +12,10 @@ import {ProductComponent} from './product/product.component';
 import {StarsComponent} from './stars/stars.component';
 import {ProductDetailComponent} from './product-detail/product-detail.component';
 import {HomeComponent} from './home/home.component';
-import {RouterModule, Routes} from "@angular/router";
-import {ProductService} from "./shared/product.service";
-import { FilterPipe } from './pipe/filter.pipe';
+import {RouterModule, Routes} from '@angular/router';
+import {ProductService} from './shared/product.service';
+import {FilterPipe} from './pipe/filter.pipe';
+import {WebSocketService} from './shared/web-socket.service';
 const routeConfig: Routes = [
   {path: '', component: HomeComponent},
   {path: 'product/:productId', component: ProductDetailComponent},
@@ -39,7 +40,7 @@ const routeConfig: Routes = [
     RouterModule.forRoot(routeConfig),
     ReactiveFormsModule
   ],
-  providers: [ProductService],
+  providers: [ProductService, WebSocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

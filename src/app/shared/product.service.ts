@@ -1,7 +1,7 @@
 import {EventEmitter, Injectable} from '@angular/core';
 import {Http, URLSearchParams} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
-import 'rxjs/rx';
+import 'rxjs/Rx';
 @Injectable()
 export class ProductService {
   searchEvent: EventEmitter<ProductSearchParams> = new EventEmitter();

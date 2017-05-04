@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Comment, Product, ProductService} from '../shared/product.service';
+import {WebSocketService} from '../shared/web-socket.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -17,7 +18,8 @@ export class ProductDetailComponent implements OnInit {
   currentBid: number;
 
   constructor(private routeInfo: ActivatedRoute,
-              private productService: ProductService) {
+              private productService: ProductService,
+              private wsService: WebSocketService) {
   }
 
   ngOnInit() {
@@ -25,7 +27,7 @@ export class ProductDetailComponent implements OnInit {
     this.productService.getProduct(productId).subscribe(
       product => {
         this.product = product;
-        this.currentBid=product.price;
+        this.currentBid = product.price;
       });
     this.productService.getCommentsForProductId(productId).subscribe(
       comments => this.comments = comments
@@ -44,5 +46,12 @@ export class ProductDetailComponent implements OnInit {
 
   watchProduct() {
     this.isWatched = !this.isWatched;
+    console.log(this.product.id);
+    this.wsService.createObservableSocket('ws://localhost:8085', this.product.id).subscribe(
+      products => {
+        let product = products.find(p => p.productId === this.product.id);
+        this.currentBid = product.bid;
+      }
+    );
   }
 }
